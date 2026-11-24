@@ -1,0 +1,26 @@
+name: GitProHub Registration
+
+on:
+  push:
+    paths:
+      - gitprohub.md
+  workflow_dispatch:
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Register Repository
+        env:
+          API_URL: https://gitprohub-api.onrender.com/api/register
+          API_TOKEN: ${{ secrets.GITPROHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPOSITORY: ${{ github.event.repository.name }}
+          COMMIT: ${{ github.sha }}
+
+        run: |
+          curl --fail-with-body -X POST "$API_URL" \
+            -H "Authorization: Bearer $API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"owner\":\"$OWNER\",\"repository\":\"$REPOSITORY\",\"commit\":\"$COMMIT\"}"
