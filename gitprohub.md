@@ -1,7 +1,7 @@
 # GitProHub
 
 protocol: GitProHub
-version: 1.0
+version: 1.3.0
 id: gitprohub-test
 name: GitProHub Test
 owner: haproven
